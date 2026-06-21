@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .fade-right {
+        mask-image: linear-gradient(to right, black calc(100% - 40px), transparent);
+    }
+    .fade-left {
+        mask-image: linear-gradient(to left, black calc(100% - 40px), transparent);
+    }
+    .fade-both {
+        mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+    }
+}

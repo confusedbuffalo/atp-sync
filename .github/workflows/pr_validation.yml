@@ -1,0 +1,73 @@
+name: PR Validation
+
+on:
+    pull_request_target:
+        paths:
+            - 'spiders_auto.json'
+            - 'spiders_preview.json'
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        steps:
+            - name: Checkout PR Branch
+              uses: actions/checkout@v5
+              with:
+                  repository: ${{ github.event.pull_request.head.repo.full_name }}
+                  ref: ${{ github.event.pull_request.head.ref }}
+                  fetch-depth: 0
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: 24.x
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run validation script
+              run: node src/validate_spiders.js
+              env:
+                  GITHUB_REPOSITORY: ${{ github.repository }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+            - name: Check for pr_comment.md
+              if: always()
+              id: comment-check
+              run: |
+                  if [ -f pr_comment.md ]; then
+                    echo "exists=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "exists=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Check for changes in spiders files
+              if: always()
+              id: git-check
+              run: |
+                  if [ -n "$(git status --porcelain spiders_auto.json spiders_preview.json)" ]; then
+                    echo "changed=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "changed=false" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit and push changes if reordered
+              if: always() && steps.git-check.outputs.changed == 'true'
+              run: |
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  git add spiders_auto.json spiders_preview.json
+                  git commit -m "Auto-sort spiders files"
+                  git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
+            - name: Post PR comment
+              if: always() && steps.comment-check.outputs.exists == 'true'
+              uses: step-security/actions-comment-pull-request@v3
+              with:
+                  file-path: pr_comment.md
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  pr-number: ${{ github.event.pull_request.number }}

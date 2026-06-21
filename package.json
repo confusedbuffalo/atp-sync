@@ -1,0 +1,67 @@
+{
+    "name": "ATP Sync",
+    "version": "1.0.0",
+    "description": "A tool to synchronise changes in brand data with OSM",
+    "main": "src/main.js",
+    "scripts": {
+        "sync": "tsx src/main.js",
+        "build:fe": "vite build",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "build:css": "tailwindcss -i src/input.css -o output/style.css",
+        "preview-build": "MOCK=true npm run sync",
+        "lint": "eslint .",
+        "format": "prettier --write .",
+        "bot:autofix": "node src/osm_safe_edits.js",
+        "release": "semantic-release"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/confusedbuffalo/atp-sync.git"
+    },
+    "keywords": [],
+    "author": "confusedbuffalo",
+    "license": "AGPL-3.0-only",
+    "type": "module",
+    "bugs": {
+        "url": "https://github.com/confusedbuffalo/atp-sync/issues"
+    },
+    "homepage": "https://atp-sync.pages.dev/",
+    "dependencies": {
+        "axios": "^1.18.0",
+        "axios-retry": "^4.5.0",
+        "countries-list": "^3.3.0",
+        "libphonenumber-js": "^1.13.7",
+        "lru-cache": "^11.5.1",
+        "name-suggestion-index": "^7.2.20260530",
+        "normalize-url": "^9.0.1",
+        "opening_hours": "^3.13.0",
+        "preact": "^10.29.2",
+        "preact-render-to-string": "^6.7.0",
+        "slugify": "^1.6.9",
+        "tldts": "^7.4.3"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@preact/preset-vite": "^2.10.5",
+        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/commit-analyzer": "^13.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^12.0.8",
+        "@semantic-release/npm": "^13.1.5",
+        "@semantic-release/release-notes-generator": "^14.1.1",
+        "@tailwindcss/cli": "^4.3.1",
+        "autoprefixer": "^10.5.0",
+        "conventional-changelog-conventionalcommits": "^9.3.1",
+        "eslint": "^10.5.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.6",
+        "globals": "^17.6.0",
+        "jest": "^30.4.2",
+        "osm-api": "^4.0.0",
+        "prettier": "^3.8.4",
+        "semantic-release": "^25.0.5",
+        "tailwindcss": "^4.3.1",
+        "tsx": "^4.22.4",
+        "vite": "^8.0.16"
+    }
+}

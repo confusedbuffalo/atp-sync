@@ -1,0 +1,16 @@
+{
+    "osmExtractUrl": "https://download.geofabrik.de/africa/south-africa-latest.osm.pbf",
+    "allowedImportableTags": [
+        "opening_hours",
+        "website",
+        "phone",
+        "fuel:octane_93",
+        "fuel:octane_95",
+        "fuel:lpg",
+        "fuel:diesel",
+        "atm",
+        "toilets",
+        "car_wash",
+        "email"
+    ]
+}

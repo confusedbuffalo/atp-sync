@@ -1,0 +1,111 @@
+name: ATP-OSM Sync
+
+on:
+    schedule:
+        - cron: '0 0 * * 3' # Run every Wednesday at midnight
+    workflow_dispatch:
+        inputs:
+            mock:
+                description: 'Run with mock data'
+                required: false
+                default: false
+                type: boolean
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    issues: write # Needed to make issues
+    deployments: write # Cloudflare wrangler makes deployments
+
+jobs:
+    sync:
+        runs-on: ubuntu-latest
+
+        env:
+            NO_DEBUG: true
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: '24.x'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Install Osmium Tool
+              if: github.event.inputs.mock != 'true' && env.MOCK != 'true'
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y osmium-tool
+
+            - name: Run synchronization script
+              run: npm run sync
+              env:
+                  MOCK: ${{ github.event.inputs.mock }}
+                  IS_WEEKLY_RUN: ${{ github.event_name == 'schedule' }}
+
+            - name: Build CSS
+              run: npm run build:css
+
+            - name: Upload dashboard
+              uses: actions/upload-artifact@v7
+              with:
+                  name: atp-osm-dashboard
+                  path: |
+                      output/
+
+            - name: Upload safe edits
+              uses: actions/upload-artifact@v7
+              with:
+                  name: safe-edits
+                  path: |
+                      safe-edits/
+
+            - name: Deploy to Cloudflare
+              uses: cloudflare/wrangler-action@v3
+              if: github.ref == 'refs/heads/main'
+              continue-on-error: true # in case of files being too large, e.g., don't kill the rest of the process
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  command: pages deploy build/name --project-name=atp-sync --commit-dirty=true
+                  gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Run feedback bot
+              if: github.event_name == 'schedule' && github.ref == 'refs/heads/main'
+              run: node src/feedback_bot.js
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_REPOSITORY: ${{ github.repository }}
+
+            - name: Run the bot process
+              id: bot_process_run
+              env:
+                  BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
+              run: npm run bot:autofix
+              continue-on-error: true
+
+            - name: Create GitHub Issue on Bot Failure
+              uses: dacbd/create-issue-action@main
+              if: always() && steps.bot_process_run.outcome == 'failure'
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  title: '🚨 Bot Edit Process Failed'
+                  body: |
+                      ## Automated Edit Failure Notification
+                      The step **'Run the bot process'** failed during the workflow run 
+                      [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+
+                      The job was configured to **continue-on-error**, but this failure requires review as changes to OSM may not have been applied.
+
+                      - **Commit**: `${{ github.sha }}`
+
+                  labels: bot-failure
+                  assignees: confusedbuffalo
