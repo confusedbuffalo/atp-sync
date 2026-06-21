@@ -16,8 +16,10 @@ concurrency:
     cancel-in-progress: true
 
 permissions:
-    issues: write # Needed to make issues
-    deployments: write # Cloudflare wrangler makes deployments
+    contents: write
+    issues: write
+    pull-requests: write
+    deployments: write
 
 jobs:
     sync:
@@ -27,8 +29,18 @@ jobs:
             NO_DEBUG: true
 
         steps:
+            - name: Generate GitHub App Token
+              id: app-token
+              uses: actions/create-github-app-token@v3
+              with:
+                  client-id: ${{ secrets.APP_ID }}
+                  private-key: ${{ secrets.APP_PRIVATE_KEY }}
+                  permission-contents: 'write'
+
             - name: Checkout repository
               uses: actions/checkout@v5
+              with:
+                  token: ${{ steps.app-token.outputs.token }}
 
             - name: Set up Node.js
               uses: actions/setup-node@v6
@@ -45,7 +57,14 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y osmium-tool
 
-            - name: Run synchronization script
+            - name: Run Semantic Release
+              if: github.ref == 'refs/heads/main'
+              id: semantic
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npx semantic-release
+
+            - name: Run synchronisation script
               run: npm run sync
               env:
                   MOCK: ${{ github.event.inputs.mock }}
@@ -75,7 +94,7 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  command: pages deploy build/name --project-name=atp-sync --commit-dirty=true
+                  command: pages deploy output --project-name=atp-sync --commit-dirty=true
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Run feedback bot
@@ -87,6 +106,7 @@ jobs:
 
             - name: Run the bot process
               id: bot_process_run
+              if: github.event_name == 'schedule' && github.ref == 'refs/heads/main'
               env:
                   BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
               run: npm run bot:autofix
