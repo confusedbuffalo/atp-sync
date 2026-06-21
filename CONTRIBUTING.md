@@ -67,7 +67,7 @@ To move a spider to auto:
 We welcome translations for the dashboard! All translation files are located in the [src/locales/](/src/locales/) directory.
 
 - **Master Locale:** [en.json](/src/locales/en.json) is the master locale file. All other main locales (e.g., `fr.json`, `de.json`) must include all the keys present in `en.json`.
-- **Sub-locales:** If you are adding a sub-locale (e.g., `en-GB.json`, `fr-CA.json`), you only need to include the keys that differ from the main locale. For example, [en-GB.json](/src/locales/en-GB.json) only contains a few overrides for British English.
+- **Sub-locales:** If you are adding a sub-locale (e.g., `en-CA.json`, `fr-CA.json`), you only need to include the keys that differ from the main locale. For example, [en-US.json](/src/locales/en-US.json) only contains a few overrides for American English.
 
 ## Other Contributions
 
