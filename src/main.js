@@ -153,10 +153,10 @@ async function run() {
         osmDate = '2026-01-04T12:00:00Z';
     } else {
         try {
-            const head = await axios.head(config.osmExtractUrl);
+            const head = await axios.head(config.osmPlanetUrl);
             osmDate = head.headers['last-modified'] ? new Date(head.headers['last-modified']).toISOString() : null;
         } catch (e) {
-            console.warn(`Failed to get OSM date from ${config.osmExtractUrl}, using current time: ${e.message}`);
+            console.warn(`Failed to get OSM date from ${config.osmPlanetUrl}, using current time: ${e.message}`);
             osmDate = new Date().toISOString();
         }
     }
@@ -180,7 +180,7 @@ async function run() {
     }
 
     try {
-        await streamOsmData(config.osmExtractUrl, allSpiders, atpLookup, wikidataToSpiders, allMatches, allUnmatched);
+        await streamOsmData(config.osmPlanetUrl, allSpiders, atpLookup, wikidataToSpiders, allMatches, allUnmatched);
     } catch (error) {
         console.error(`Error streaming OSM data: ${error.message}`);
         process.exit(1);
