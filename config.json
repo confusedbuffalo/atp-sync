@@ -1,5 +1,5 @@
 {
-    "osmExtractUrl": "https://download.geofabrik.de/africa/south-africa-latest.osm.pbf",
+    "osmPlanetUrl": "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf",
     "allowedImportableTags": [
         "opening_hours",
         "website",
