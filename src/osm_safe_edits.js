@@ -213,11 +213,11 @@ export async function uploadSafeChanges(filePath) {
 
     if (modifications.length > 0) {
         console.log(
-            `Uploading ${modifications.length} modifications for ${metadata.spider}: ${metadata.state} (${metadata.country})`
+            `Uploading ${modifications.length} modifications for ${metadata.spider}: ${metadata.state || ''} (${metadata.country})`
         );
 
         const pageLink = `${HOST_URL}auto/${metadata.spider}`;
-        const comment = `Automatically update ${stateData.tags.join(',')} from first-party brand data for ${metadata.spider}: ${metadata.country}, ${metadata.state}`;
+        const comment = `Automatically update ${metadata.tags.join(',')} from first-party brand data for ${metadata.spider}: ${metadata.country}${metadata.state ? `, ${metadata.state}` : ''}`;
 
         const response = await withRetry(() =>
             OSM.uploadChangeset(
@@ -233,7 +233,9 @@ export async function uploadSafeChanges(filePath) {
         const changesetIds = Object.keys(response || {});
 
         changesetIds.forEach(id => {
-            console.log(`Changeset ${id} created for ${metadata.spider}: ${metadata.state} (${metadata.country})`);
+            console.log(
+                `Changeset ${id} created for ${metadata.spider}: ${metadata.state || ''} (${metadata.country})`
+            );
         });
     }
 }
