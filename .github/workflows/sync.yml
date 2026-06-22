@@ -89,7 +89,7 @@ jobs:
 
             - name: Deploy to Cloudflare
               uses: cloudflare/wrangler-action@v3
-              if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/main' && github.event.inputs.mock != 'true' && env.MOCK != 'true'
               continue-on-error: true # in case of files being too large, e.g., don't kill the rest of the process
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
