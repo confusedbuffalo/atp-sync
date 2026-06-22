@@ -133,7 +133,6 @@ export async function loadAllAtpData(spiders, runs) {
             return map;
         });
 
-        // Calculate stability dot colour and score
         const { stabilityColour, stabilityScore } = calculateStability(featureCounts, isBrandSpider);
 
         const brandsSet = new Set();

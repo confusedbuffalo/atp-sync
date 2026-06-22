@@ -371,7 +371,6 @@ async function run() {
         console.error(`Error generating webpage: ${error.message}`);
     }
 
-    // Save safe edits
     function saveSafeEdits(safeEdits, subDir) {
         try {
             const safeEditsDir = path.join(SAFE_EDITS_DIR, subDir);
