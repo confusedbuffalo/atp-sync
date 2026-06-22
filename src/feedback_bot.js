@@ -38,10 +38,7 @@ async function run() {
     const summaryMap = new Map(syncSummary.map(s => [s.name, s]));
 
     try {
-        // Handle open PRs for auto-request
         await handleAutoRequestPrs(summaryMap);
-
-        // Handle merged PRs for preview-request
         await handleMergedPreviewPrs(summaryMap);
     } catch (error) {
         console.error(`Error in feedback bot: ${error.message}`);
@@ -99,16 +96,13 @@ async function handleAutoRequestPrs(summaryMap) {
 
         if (!hasComment1 && !hasComment2) {
             if (newSpiderCount < 5) {
-                // Post Comment 1
                 await postComment1(pr, spiderName, spiderData);
                 spidersForForumPost.push({ pr, spiderName, spiderData });
                 newSpiderCount++;
             } else if (!hasPendingComment) {
-                // Post Pending Comment
                 await postPendingComment(pr);
             }
         } else if (hasComment1 && !hasComment2) {
-            // Post Comment 2
             await postComment2(pr, spiderName);
         }
     }
