@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/confusedbuffalo/atp-sync/compare/v1.0.1...v1.0.2) (2026-06-24)
+
+### Bug Fixes
+
+* use token for semantic release ([9f9bce9](https://github.com/confusedbuffalo/atp-sync/commit/9f9bce9fbe0351a323c9d884f670f6f19307d4b1))
+
 ## [1.0.1](https://github.com/confusedbuffalo/atp-sync/compare/v1.0.0...v1.0.1) (2026-06-24)
 
 ### Bug Fixes

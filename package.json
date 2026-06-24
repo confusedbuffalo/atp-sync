@@ -1,6 +1,6 @@
 {
     "name": "atp-sync",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A tool to synchronise changes in brand data with OSM",
     "main": "src/main.js",
     "scripts": {
