@@ -11,6 +11,7 @@ jobs:
         permissions:
             contents: write
             pull-requests: write
+            actions: write
         steps:
             - name: Generate GitHub App Token
               id: app-token
