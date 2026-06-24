@@ -65,7 +65,7 @@ jobs:
               if: github.ref == 'refs/heads/main' && github.event.inputs.mock != 'true' && env.MOCK != 'true'
               id: semantic
               env:
-                  GITHUB_TOKEN: ${{ steps.app-token.outputs.token }} 
+                  GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
               run: npx semantic-release
 
             - name: Run synchronisation script
