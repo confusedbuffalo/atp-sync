@@ -194,7 +194,7 @@ export function normaliseWebsite(url) {
 }
 
 /**
- * Compares two website URLs for equality after normalization.
+ * Compares two website URLs for equality after normalisation.
  *
  * @param {string} v1 - The first URL.
  * @param {string} v2 - The second URL.

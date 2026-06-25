@@ -67,6 +67,6 @@ The frontend is built using Preact and Vite.
     npm test
     ```
 
-## License
+## Licence
 
-This project is licensed under the AGPL 3.0 license only. See the [`LICENSE`](/LICENSE) file for details.
+This project is licenced under the AGPL 3.0 license only. See the [`LICENSE`](/LICENSE) file for details.
