@@ -1,3 +1,17 @@
+## [1.1.0](https://github.com/confusedbuffalo/atp-sync/compare/v1.0.2...v1.1.0) (2026-06-25)
+
+### Features
+
+* **locales:** add machine translations ([298e131](https://github.com/confusedbuffalo/atp-sync/commit/298e13124113d0a5f526a4951280b4cbf4523c35))
+* **locales:** add machine translations for more languages ([ecb17ef](https://github.com/confusedbuffalo/atp-sync/commit/ecb17ef87aa90659945940b038e26c936673d918))
+* require addr:country match for reference-based matching ([e539205](https://github.com/confusedbuffalo/atp-sync/commit/e53920510773dac16fe322ea00cf704ef8b59627))
+* respect existing contact:* tag prefixes when updating tags ([944c40c](https://github.com/confusedbuffalo/atp-sync/commit/944c40c62b1cbcfdcc4f64e74be7a039a049da69))
+
+### Bug Fixes
+
+* allow PR merge to lint workflow ([2cacda3](https://github.com/confusedbuffalo/atp-sync/commit/2cacda3054159ca8fec26a744ac56573e14b93c0))
+* fix HTML rendering in mismatch warning modal ([fff43c4](https://github.com/confusedbuffalo/atp-sync/commit/fff43c40d09b83fcffb4061aafb39fa878e2561b))
+
 ## [1.0.2](https://github.com/confusedbuffalo/atp-sync/compare/v1.0.1...v1.0.2) (2026-06-24)
 
 ### Bug Fixes
