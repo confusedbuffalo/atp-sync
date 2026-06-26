@@ -99,8 +99,7 @@
     },
     "spar_bw_mz_na_sz_za": {
         "importableTags": ["phone"],
-        "source_uri": ["spar.co.za"],
-        "showUnmatched": true
+        "source_uri": ["spar.co.za"]
     },
     "standard_bank_za": {
         "source_uri": ["standardbank.co.za"],
