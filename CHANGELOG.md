@@ -1,3 +1,14 @@
+## [1.2.0](https://github.com/confusedbuffalo/atp-sync/compare/v1.1.0...v1.2.0) (2026-07-01)
+
+### Features
+
+* filter invalid phone numbers from ATP data ([f906bf9](https://github.com/confusedbuffalo/atp-sync/commit/f906bf982252f5bcc12a675ac46af389311e108f))
+
+### Bug Fixes
+
+* don't bold tag name in tag mismatch modal ([b78ec89](https://github.com/confusedbuffalo/atp-sync/commit/b78ec89f733178f49a37670907c4648d622df09c))
+* don't show unmatched for Spar ([04b634b](https://github.com/confusedbuffalo/atp-sync/commit/04b634b73cba7ed9b5282959144bddf662fad466))
+
 ## [1.1.0](https://github.com/confusedbuffalo/atp-sync/compare/v1.0.2...v1.1.0) (2026-06-25)
 
 ### Features
