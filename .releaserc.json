@@ -19,10 +19,10 @@
                     "types": [
                         { "type": "feat", "section": "Features" },
                         { "type": "fix", "section": "Bug Fixes" },
-                        { "type": "chore", "section": "Maintenance", "hidden": true },
-                        { "type": "docs", "section": "Documentation", "hidden": false },
-                        { "type": "perf", "section": "Performance Improvements", "hidden": false },
-                        { "type": "refactor", "section": "Code Refactoring", "hidden": false }
+                        { "type": "chore", "section": "Maintenance", "effect": "bump" },
+                        { "type": "docs", "section": "Documentation", "effect": "changelog" },
+                        { "type": "perf", "section": "Performance Improvements", "effect": "changelog" },
+                        { "type": "refactor", "section": "Code Refactoring", "effect": "changelog" }
                     ]
                 }
             }
