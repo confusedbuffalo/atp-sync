@@ -35,7 +35,7 @@
         "name-suggestion-index": "^7.2.20260530",
         "normalize-url": "^9.0.1",
         "opening_hours": "^3.13.0",
-        "preact": "^10.29.4",
+        "preact": "^10.29.7",
         "preact-render-to-string": "^6.7.0",
         "slugify": "^1.6.9",
         "tldts": "^7.4.6"
