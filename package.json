@@ -62,6 +62,6 @@
         "semantic-release": "^25.0.9",
         "tailwindcss": "^4.3.3",
         "tsx": "^4.23.12",
-        "vite": "^8.2.1"
+        "vite": "^8.2.2"
     }
 }
