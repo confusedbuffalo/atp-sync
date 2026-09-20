@@ -38,7 +38,7 @@
         "preact": "^10.29.8",
         "preact-render-to-string": "^6.7.0",
         "slugify": "^1.6.9",
-        "tldts": "^7.4.12"
+        "tldts": "^7.4.13"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
