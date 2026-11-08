@@ -60,7 +60,7 @@
         "osm-api": "^4.0.1",
         "prettier": "^3.9.10",
         "semantic-release": "^25.0.9",
-        "tailwindcss": "^4.3.3",
+        "tailwindcss": "^4.3.4",
         "tsx": "^4.23.15",
         "vite": "^8.3.5"
     }
