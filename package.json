@@ -30,7 +30,7 @@
         "axios": "^1.21.0",
         "axios-retry": "^4.5.0",
         "countries-list": "^3.4.1",
-        "libphonenumber-js": "^1.13.15",
+        "libphonenumber-js": "^1.13.16",
         "lru-cache": "^11.5.3",
         "name-suggestion-index": "^8.0.20261101",
         "normalize-url": "^10.0.0",
