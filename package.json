@@ -58,7 +58,7 @@
         "globals": "^17.13.0",
         "jest": "^30.5.2",
         "osm-api": "^4.0.1",
-        "prettier": "^3.9.10",
+        "prettier": "^3.10.0",
         "semantic-release": "^25.0.9",
         "tailwindcss": "^4.3.4",
         "tsx": "^4.23.15",
